@@ -32,6 +32,7 @@ namespace FoodyAppTestProject_Exam.Pages
             ImageUrlInput.SendKeys(imageUrl);
             AddButton.Click();
         }
+        
 
         public void AssertErrorMessages()
         {

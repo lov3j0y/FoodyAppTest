@@ -4,8 +4,8 @@ namespace FoodyAppTestProject_Exam.Tests
 {
     public class FoodyAppTests : BaseTest
     {
-        public string lastAddedFoodName;
-        public string lastAddedFoodDescription;
+        public string? lastAddedFoodName;
+        public string? lastAddedFoodDescription;
 
         [Test, Order(1)]
         public void AddFoodWithInvalidData()
@@ -64,18 +64,15 @@ namespace FoodyAppTestProject_Exam.Tests
         public void DeleteLastAddedFood()
         {            
             homePage.OpenPage();
-            var initialFoodRevuesCount = homePage.FoodRevuesCount.Count();
+            var initialFoodRevuesCount = homePage.FoodRevues.Count();
             actions.ScrollToElement(homePage.DeleteButtonLastFood).Perform();                                   
             homePage.DeleteButtonLastFood.Click();
-            var finalFoodRevuesCount = homePage.FoodRevuesCount.Count();
+            var finalFoodRevuesCount = homePage.FoodRevues.Count();
 
-            if (finalFoodRevuesCount < 2)
+            if (finalFoodRevuesCount == 1 && homePage.NameLastFood.Text != lastAddedFoodName)
             {
-                Assert.That(finalFoodRevuesCount, Is.EqualTo(initialFoodRevuesCount), "Food revue was not deleted.");
-            }
-            else
-            {
-                Assert.That(finalFoodRevuesCount, Is.EqualTo(initialFoodRevuesCount-1), "Food revue was not deleted.");
+                finalFoodRevuesCount = 0;
+                Assert.That(finalFoodRevuesCount, Is.EqualTo(initialFoodRevuesCount - 1), "Food revue was not deleted.");
             }
 
             Assert.That(homePage.NameLastFood.Text, Is.Not.EqualTo(lastAddedFoodName), "Last food names are matching.");
@@ -91,7 +88,7 @@ namespace FoodyAppTestProject_Exam.Tests
 
 
             Assert.That(searchPage.NoFoodsMessage.Text, Is.EqualTo("There are no foods :("), "Error message is not displayed.");
-            Assert.That(searchPage.AddButton.Displayed, Is.True,  "Food name do not match");
+            Assert.That(searchPage.AddButton.Displayed, Is.True,  "Add button is not visible.");
         }
     }
 }

@@ -17,9 +17,7 @@ namespace FoodyAppTestProject_Exam.Pages
 
         public string Url = BaseUrl;
 
-        public ReadOnlyCollection<IWebElement> FoodRevues => driver.FindElements(By.XPath("//div[@class='p-5']"));
-        public ReadOnlyCollection<IWebElement> FoodRevuesCount => driver.FindElements(By.XPath("//div[@class='p-5']//h2"));
-
+        public ReadOnlyCollection<IWebElement> FoodRevues => driver.FindElements(By.XPath("//section[@id='scroll']"));
         public IWebElement EditButtonLastFood => FoodRevues.Last().FindElement(By.XPath(".//a[contains(@href,'/Food/Edit')]"));
         public IWebElement DeleteButtonLastFood => FoodRevues.Last().FindElement(By.XPath(".//a[contains(@href,'/Food/Delete')]"));
         public IWebElement NameLastFood => FoodRevues.Last().FindElement(By.XPath(".//h2[@class='display-4']"));
